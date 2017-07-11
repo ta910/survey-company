@@ -7,6 +7,11 @@ Rails.application.routes.draw do
     passwords:     'admins/passwords',
     registrations: 'admins/registrations'
   }
+
+  devise_scope :user do
+    get "/companies/:company_id/sign_up", :to => "users/registrations#new"
+  end
+
   devise_for :users, controllers: {
     sessions:      'users/sessions',
     passwords:     'users/passwords',
@@ -25,7 +30,12 @@ Rails.application.routes.draw do
   end
 
   resources :companies, only: [] do
-    resources :survey, only: [:index, :show] do
+    # devise_for :users, controllers: {
+    #   sessions:      'users/sessions',
+    #   passwords:     'users/passwords',
+    #   registrations: 'users/registrations'
+    # }
+    resources :surveys, only: [:index, :show] do
       member do
         get :answer_new
         post :answer_create
