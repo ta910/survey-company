@@ -1,22 +1,20 @@
 Rails.application.routes.draw do
 
-  root 'root#top'
-
   devise_for :admins, controllers: {
     sessions:      'admins/sessions',
     passwords:     'admins/passwords',
     registrations: 'admins/registrations'
   }
-
-  devise_scope :user do
-    get "/companies/:company_id/sign_up", :to => "users/registrations#new"
+  scope "companies/:company_id" do
+    devise_for :users, controllers: {
+      sessions:      'users/sessions',
+      passwords:     'users/passwords',
+      registrations: 'users/registrations'
+    }
   end
 
-  devise_for :users, controllers: {
-    sessions:      'users/sessions',
-    passwords:     'users/passwords',
-    registrations: 'users/registrations'
-  }
+  root 'root#top'
+  get 'search' => 'root#search'
 
   namespace :admins do
     resources :campanies
@@ -30,11 +28,9 @@ Rails.application.routes.draw do
   end
 
   resources :companies, only: [] do
-    # devise_for :users, controllers: {
-    #   sessions:      'users/sessions',
-    #   passwords:     'users/passwords',
-    #   registrations: 'users/registrations'
-    # }
+    collection do
+      get :search
+    end
     resources :surveys, only: [:index, :show] do
       member do
         get :answer_new
