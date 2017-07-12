@@ -3,7 +3,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    @company_id = Company.where(name: params[:name]).first.id
+    @company_id = Company.find_by(name: params[:name]).id
     super
   end
 
