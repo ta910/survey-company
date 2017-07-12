@@ -9,11 +9,15 @@ class ApplicationController < ActionController::Base
       admins_companies_path
     when User
       if current_user.normal?
-        company_surveys_path
+        company_surveys_path(current_user.company)
       else
-        mains_users_path
+        company_users_path(current_user.company)
       end
     end
+  end
+
+  def after_sign_out_path_for(resource)
+    root_path
   end
 
   private

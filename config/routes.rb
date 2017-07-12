@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root 'roots#top'
+
   devise_for :admins, controllers: {
     sessions:      'admins/sessions',
     passwords:     'admins/passwords',
@@ -20,11 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :mains do
-    resources :users, only: [:index, :delete]
-  end
-
   resources :companies, only: [] do
+    resources :users, only: [:index, :delete]
     resources :surveys, only: [:index, :show] do
       member do
         get :answer_new

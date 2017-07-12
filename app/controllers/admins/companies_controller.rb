@@ -1,4 +1,8 @@
-class CompaniesController < ApplicationController
+class Admins::CompaniesController < AdminsController
+
+  def index
+
+  end
 
   def search
     @companies = Company.where('name LIKE ?', "%#{params[:name]}%")
