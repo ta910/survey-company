@@ -1,3 +1,40 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  root 'roots#top'
+
+  devise_for :admins, controllers: {
+    sessions:      'admins/sessions',
+    passwords:     'admins/passwords',
+    registrations: 'admins/registrations'
+  }
+  scope "companies/:name" do
+    devise_for :users, controllers: {
+      sessions:      'users/sessions',
+      passwords:     'users/passwords',
+      registrations: 'users/registrations'
+    }
+  end
+
+  namespace :admins do
+    resources :companies, param: :name
+    resources :surveys, only: [:new, :create] do
+      resources :questions, only: [:new, :create]
+    end
+  end
+
+  resources :companies, param: :name, only: [] do
+    resources :users, only: [:index, :delete]
+    resources :surveys, only: [:index, :show] do
+      member do
+        get :answer_new
+        post :answer_create
+      end
+    end
+  end
+
+  resources :users, only: :show do
+    resources :messages, only: [:new, :create]
+  end
+
 end
+
