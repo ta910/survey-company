@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authenticate!
+  def authenticate_admin_or_user
     unless admin_signed_in?
       authenticate_user
     end
