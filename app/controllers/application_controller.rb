@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
       admins_companies_path
     when User
       if current_user.normal?
-        company_surveys_path(current_user.company)
+        company_surveys_path(current_user.company.name)
       else
-        company_users_path(current_user.company)
+        company_users_path(current_user.company.name)
       end
     end
   end

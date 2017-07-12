@@ -16,13 +16,13 @@ Rails.application.routes.draw do
   end
 
   namespace :admins do
-    resources :companies
+    resources :companies, param: :name
     resources :surveys, only: [:new, :create] do
       resources :questions, only: [:new, :create]
     end
   end
 
-  resources :companies, only: [] do
+  resources :companies, param: :name, only: [] do
     resources :users, only: [:index, :delete]
     resources :surveys, only: [:index, :show] do
       member do
