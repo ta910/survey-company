@@ -9,6 +9,8 @@ h2
     = f.label :password
     br
     = f.password_field :password, autocomplete: "off"
+    br
+    = f.hidden_field :company_id, value: @company_id
   - if devise_mapping.rememberable?
     .field
       = f.check_box :remember_me

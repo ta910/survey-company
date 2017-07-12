@@ -14,13 +14,13 @@ Rails.application.routes.draw do
   end
 
   namespace :admins do
-    resources :campanies
+    resources :companies
     resources :surveys, only: [:new, :create] do
       resources :questions, only: [:new, :create]
     end
   end
 
-  namespace :mains do
+  scope :mains do
     resources :users, only: [:index, :delete]
   end
 
