@@ -5,16 +5,13 @@ Rails.application.routes.draw do
     passwords:     'admins/passwords',
     registrations: 'admins/registrations'
   }
-  scope "companies/:company_id" do
+  scope "companies/:name" do
     devise_for :users, controllers: {
       sessions:      'users/sessions',
       passwords:     'users/passwords',
       registrations: 'users/registrations'
     }
   end
-
-  root 'root#top'
-  get 'search' => 'root#search'
 
   namespace :admins do
     resources :campanies
@@ -28,9 +25,6 @@ Rails.application.routes.draw do
   end
 
   resources :companies, only: [] do
-    collection do
-      get :search
-    end
     resources :surveys, only: [:index, :show] do
       member do
         get :answer_new
