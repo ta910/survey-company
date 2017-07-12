@@ -10,8 +10,10 @@ class ApplicationController < ActionController::Base
     when User
       if current_user.normal?
         company_surveys_path(current_user.company.name)
-      else
+      elsif current_user.main?
         company_users_path(current_user.company.name)
+      else
+        root_path
       end
     end
   end
