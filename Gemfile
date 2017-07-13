@@ -57,6 +57,8 @@ group :development do
   gem 'rubycritic', require: false
   gem 'rubocop', require: false
   gem 'bullet'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
