@@ -1,6 +1,6 @@
 class SurveysController < ApplicationController
 
-  before_action :authenticate_admin_or_user
+  before_action :authenticate_user!
 
   def index
 

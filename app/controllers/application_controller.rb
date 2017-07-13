@@ -29,16 +29,4 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :image])
   end
 
-  def authenticate_user
-    unless user_signed_in?
-      redirect_to root_path
-    end
-  end
-
-  def authenticate_admin_or_user
-    unless admin_signed_in?
-      authenticate_user
-    end
-  end
-
 end
