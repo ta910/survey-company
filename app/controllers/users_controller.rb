@@ -1,14 +1,15 @@
 class UsersController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :authorized_main!, :authorized_user!
 
   def index
-    unless current_user.main?
-      redirect_to root_path
-    else
-      user_ids = Company.find_by(name: params[:company_name]).users.ids
-      redirect_to root_path unless user_ids.include?(current_user.id)
-    end
+
+  end
+
+  private
+
+  def authorized_main!
+    redirect_to root_path unless current_user.main?
   end
 
 end
