@@ -29,4 +29,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :image])
   end
 
+  def authorized_user!
+    company = Company.find_by(name: params[:company_name])
+    redirect_to root_path unless company.has_user?(current_user)
+  end
+
 end

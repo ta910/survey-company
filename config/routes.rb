@@ -11,12 +11,15 @@ Rails.application.routes.draw do
     devise_for :users, controllers: {
       sessions:      'users/sessions',
       passwords:     'users/passwords',
-      registrations: 'users/registrations'
+      registrations: 'users/registrations',
+      confirmations: 'users/confirmations'
     }
   end
 
   namespace :admins do
-    resources :companies, param: :name
+    resources :companies, param: :name do
+      resources :surveys, only: [:index, :show]
+    end
     resources :surveys, only: [:new, :create] do
       resources :questions, only: [:new, :create]
     end

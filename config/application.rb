@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module SurveyCompany
   class Application < Rails::Application
+    config.i18n.default_locale = :ja
+
     config.generators do |g|
       g.test_framework false
       g.helper false
