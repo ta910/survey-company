@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module SurveyCompany
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.1
     config.i18n.default_locale = :ja
 
     config.generators do |g|
