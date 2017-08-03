@@ -12,10 +12,23 @@ class Admins::CompaniesController < AdminsController
   def create
     @company = Company.new(company_params)
     if @company.save
+      @company.users.last.main!
       redirect_to admins_companies_path
     else
       render :new
     end
+  end
+
+  def edit
+    @company = company
+  end
+
+  def update
+    
+  end
+
+  def delete
+    
   end
 
   def search
@@ -29,6 +42,10 @@ class Admins::CompaniesController < AdminsController
 
   def company_params
     params.require(:company).permit(:name, users_attributes: [:id, :name, :email, :password, :password_confirmation])
+  end
+
+  def company
+    Company.find_by(name: params[:name])
   end
 
 end
