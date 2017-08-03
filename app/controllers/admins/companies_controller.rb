@@ -1,7 +1,7 @@
 class Admins::CompaniesController < AdminsController
 
   def index
-
+    @companies = Company.all
   end
 
   def search
