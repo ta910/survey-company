@@ -1,0 +1,30 @@
+= form_with(model: [ :admins, @company ], url: admins_companies_path) do |f|
+  .company-name
+    = f.label :"法人名"
+    = f.text_field :name
+  p.main-user
+    | 代表者
+  = f.fields_for :users do |u|
+    .field
+      = u.label :name
+      br
+      = u.text_field :name, autofocus: true
+    .field
+      = u.label :email
+      br
+      = u.email_field :email
+    .field
+      = u.label :password
+      - if @minimum_password_length
+        em
+          | (
+          = @minimum_password_length
+          |  characters minimum)
+      br
+      = u.password_field :password, autocomplete: "off"
+    .field
+      = u.label :password_confirmation
+      br
+      = u.password_field :password_confirmation, autocomplete: "off"
+    = u.hidden_field :status, value: 1
+    = u.submit "登録"
