@@ -6,7 +6,7 @@ class Admins::CompaniesController < AdminsController
 
   def new
     @company = Company.new
-    @company.users.build
+    @user = @company.users.build
   end
 
   def create
@@ -20,11 +20,21 @@ class Admins::CompaniesController < AdminsController
   end
 
   def edit
+    @user = company.users.main.first
     @company = company
   end
 
   def update
-    
+    binding.pry
+    ActiveRecord::Base.transaction do
+      company.update!(company_params)
+      user.update!(user_params)
+    end
+      redirect_to admins_companies_path
+    rescue => e
+      @company = company
+      @user = user
+      render :edit
   end
 
   def delete
@@ -41,11 +51,19 @@ class Admins::CompaniesController < AdminsController
   private
 
   def company_params
-    params.require(:company).permit(:name, users_attributes: [:id, :name, :email, :password, :password_confirmation])
+    params.require(:company).permit(:name, users_attributes: [:name, :email, :password, :password_confirmation])
+  end
+
+  def user_params
+    params.require(:company).require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
   def company
     Company.find_by(name: params[:name])
+  end
+
+  def user
+    User.find(params[:company][:user][:user_id])
   end
 
 end
