@@ -25,20 +25,20 @@ class Admins::CompaniesController < AdminsController
   end
 
   def update
-    binding.pry
     ActiveRecord::Base.transaction do
       company.update!(company_params)
       user.update!(user_params)
     end
       redirect_to admins_companies_path
-    rescue => e
+    rescue ActiveRecord::RecordInvalid
       @company = company
       @user = user
       render :edit
   end
 
-  def delete
-    
+  def destroy
+    company.destroy
+    redirect_to admins_companies_path
   end
 
   def search
