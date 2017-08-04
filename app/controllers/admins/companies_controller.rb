@@ -32,8 +32,8 @@ class Admins::CompaniesController < AdminsController
     @user = user
     begin
       ActiveRecord::Base.transaction do
-        company.update!(company_params)
-        user.update!(user_params)
+        company.update!(name: company_params[:name])
+        user.update!(name: user_params[:name], email: user_params[:email], password: user_params[:password], password_confirmation: user_params[:password_confirmation])
       end
       redirect_to admins_companies_path
     rescue ActiveRecord::RecordInvalid
