@@ -6,39 +6,32 @@ class Admins::CompaniesController < AdminsController
 
   def new
     @company = Company.new
-    @user = @company.users.build
+    @user = User.new
   end
 
   def create
-    @company = Company.new(company_params)
-    begin
-      ActiveRecord::Base.transaction do
-        @company.save!
-        @company.users.last.main!
-      end
-      redirect_to admins_companies_path
-    rescue
-      render :new
-    end
+    Company.create_with_main_user!(company_name: company_params[:name], user_name: user_params[:name],
+       email: user_params[:email], password: user_params[:password], password_confirmation: user_params[:password_confirmation])
+    redirect_to admins_companies_path
+  rescue
+    @company = Company.new
+    @user = User.new
+    render :new
   end
 
   def edit
     @company = company
-    @user = company.main_user!
+    @user = company.main_user
   end
 
   def update
+    company.update_with_main_user!(company_name: company_params[:name], user_name: user_params[:name],
+       email: user_params[:email], password: user_params[:password], password_confirmation: user_params[:password_confirmation])
+    redirect_to admins_companies_path
+  rescue ActiveRecord::RecordInvalid
     @company = company
     @user = user
-    begin
-      ActiveRecord::Base.transaction do
-        company.update!(name: company_params[:name])
-        user.update!(name: user_params[:name], email: user_params[:email], password: user_params[:password], password_confirmation: user_params[:password_confirmation])
-      end
-      redirect_to admins_companies_path
-    rescue ActiveRecord::RecordInvalid
-      render :edit
-    end
+    render :edit
   end
 
   def destroy
@@ -56,7 +49,7 @@ class Admins::CompaniesController < AdminsController
   private
 
   def company_params
-    params.require(:company).permit(:name, users_attributes: [:name, :email, :password, :password_confirmation])
+    params.require(:company).permit(:name)
   end
 
   def user_params

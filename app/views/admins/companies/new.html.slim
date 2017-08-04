@@ -4,7 +4,7 @@
     = f.text_field :name
   p.main-user
     | 代表者
-  = f.fields_for :users do |u|
+  = f.fields_for @user do |u|
     .field
       = u.label :name
       br

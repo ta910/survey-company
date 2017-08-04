@@ -55,7 +55,16 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'brakeman', require: false
   gem 'rubycritic', require: false
+  gem 'onkcop', require: false
   gem 'rubocop', require: false
+
+  # rubocop pr comment gems
+  gem 'checkstyle_filter-git'
+  gem 'github_status_notifier'
+  gem 'rubocop-checkstyle_formatter'
+  gem 'rubocop-select'
+  gem 'saddler'
+  gem 'saddler-reporter-github'
   gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller'
