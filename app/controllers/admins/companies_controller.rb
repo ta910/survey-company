@@ -23,8 +23,8 @@ class Admins::CompaniesController < AdminsController
   end
 
   def edit
-    @user = company.main_user!
     @company = company
+    @user = company.main_user!
   end
 
   def update
@@ -60,15 +60,15 @@ class Admins::CompaniesController < AdminsController
   end
 
   def user_params
-    params.require(:company).require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:company).require(:user).permit(:name, :email, :password, :password_confirmation, :user_id)
   end
 
   def company
-    Company.find_by(name: params[:name])
+    Company.find_by!(name: params[:name])
   end
 
   def user
-    User.find(params[:company][:user][:user_id])
+    User.find(user_params[:user_id])
   end
 
 end

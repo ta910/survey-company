@@ -1,0 +1,18 @@
+# These are all the cops that are enabled in the default configuration.
+
+# 分けたい by shinofumijp
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/MultilineMethodCallBraceLayout:
+  EnforcedStyle: symmetrical
+
+Style/VariableNumber:
+  EnforcedStyle: normalcase
+
+Metrics/ParameterLists:
+  Max: 5
+  CountKeywordArgs: true
+
+RSpec/ExampleLength:
+  Max: 100
