@@ -1,7 +1,7 @@
 class Admins::CompaniesController < AdminsController
 
   def index
-    @companies = Company.all
+    @companies = Company.order("created_at DESC").page(params[:page]).per(5)
   end
 
   def new
