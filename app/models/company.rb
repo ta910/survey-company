@@ -7,4 +7,8 @@ class Company < ApplicationRecord
     self == user.company
   end
 
+  def main_user!
+    users.main.first
+  end
+
 end

@@ -11,16 +11,19 @@ class Admins::CompaniesController < AdminsController
 
   def create
     @company = Company.new(company_params)
-    if @company.save
-      @company.users.last.main!
+    begin
+      ActiveRecord::Base.transaction do
+        @company.save!
+        @company.users.last.main!
+      end
       redirect_to admins_companies_path
-    else
+    rescue
       render :new
     end
   end
 
   def edit
-    @user = company.users.main.first
+    @user = company.main_user!
     @company = company
   end
 
