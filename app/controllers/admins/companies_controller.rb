@@ -25,15 +25,17 @@ class Admins::CompaniesController < AdminsController
   end
 
   def update
-    ActiveRecord::Base.transaction do
-      company.update!(company_params)
-      user.update!(user_params)
-    end
+    @company = company
+    @user = user
+    begin
+      ActiveRecord::Base.transaction do
+        company.update!(company_params)
+        user.update!(user_params)
+      end
       redirect_to admins_companies_path
     rescue ActiveRecord::RecordInvalid
-      @company = company
-      @user = user
       render :edit
+    end
   end
 
   def destroy
