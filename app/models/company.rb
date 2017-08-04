@@ -25,7 +25,6 @@ class Company < ApplicationRecord
     def create_with_main_user!(company_name:, user_name:, email:, password:, password_confirmation:)
       ActiveRecord::Base.transaction do
         company = Company.create!(name: company_name)
-        # status_id = User.statuses[:main]
         User.create!(name: user_name, email: email,
            password: password, password_confirmation: password_confirmation, company_id: company.id, status: "main")
       end
