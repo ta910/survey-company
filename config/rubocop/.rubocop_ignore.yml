@@ -1,0 +1,23 @@
+AllCops:
+  Exclude:
+# ignore folders
+    - 'vendor/**/*'
+    - 'log/**/*'
+    - 'bin/**/*'
+    - 'db/seeds.rb'
+    - 'db/fixtures/**/*'
+    - 'db/*schema.rb'
+    - 'doc/**/*'
+    - 'tmp/**/*'
+    - 'app/api/**/*'
+    - 'app/builders/v3/**/*'
+    - 'app/services/v1/**/*'
+    - 'app/services/v2/**/*'
+    - 'app/services/v3/**/*'
+    - 'spec/requests/api/**/*'
+    - 'spec/view_models/apis/v3/**/*'
+
+# ingore files
+    - 'lib/tasks/cron/from_scratch.rake'
+    - 'config/initializers/assets.rb'
+    - 'app/models/concerns/user/special_user_ids.rb'

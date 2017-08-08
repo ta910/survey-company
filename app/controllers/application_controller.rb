@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   before_action :configure_permitted_parameters, if: :devise_controller?
   protect_from_forgery with: :exception
 
@@ -33,5 +32,4 @@ class ApplicationController < ActionController::Base
     company = Company.find_by(name: params[:company_name])
     redirect_to root_path unless company.has_user?(current_user)
   end
-
 end

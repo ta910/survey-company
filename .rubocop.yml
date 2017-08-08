@@ -1,0 +1,15 @@
+inherit_gem:
+  onkcop:
+    - 'config/rubocop.yml'
+    - 'config/rails.yml'
+    - 'config/rspec.yml'
+
+inherit_from:
+  - 'config/rubocop/.rubocop_enabled.yml'
+  - 'config/rubocop/.rubocop_disabled.yml'
+  - 'config/rubocop/.rubocop_ignore.yml'
+
+AllCops:
+  TargetRubyVersion: 2.3
+
+  DisplayStyleGuide: true

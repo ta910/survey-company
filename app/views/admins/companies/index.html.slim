@@ -1,0 +1,10 @@
+.new-survey
+  = link_to new_admins_survey_path
+    | アンケート作成
+.new-company
+  = link_to new_admins_company_path
+    | 法人追加
+
+== render @companies
+
+= paginate(@companies)

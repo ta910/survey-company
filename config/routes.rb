@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admins do
-    resources :companies, param: :name do
+    resources :companies, param: :name, except: [:show] do
       resources :surveys, only: [:index, :show]
     end
     resources :surveys, only: [:new, :create] do
