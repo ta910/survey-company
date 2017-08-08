@@ -13,8 +13,7 @@ class Company < ApplicationRecord
   def update_with_main_user!(company_name:, user_name:, email:, password:, password_confirmation:)
     ActiveRecord::Base.transaction do
       update!(name: company_name)
-      user = main_user
-      user.update!(name: user_name, email: email,
+      main_user.update!(name: user_name, email: email,
            password: password, password_confirmation: password_confirmation)
     end
   end

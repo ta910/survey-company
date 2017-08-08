@@ -1,6 +1,6 @@
 class Admins::CompaniesController < AdminsController
   def index
-    @companies = Company.order("created_at DESC").page(params[:page]).per(5)
+    @companies = Company.order(created_at: 'DESC').page(index_params[:page]).per(index_params[:per])
   end
 
   def new
@@ -46,6 +46,10 @@ class Admins::CompaniesController < AdminsController
   end
 
   private
+
+  def index_params
+    params.permit(:page).merge(per: 5)
+  end
 
   def company_params
     params.require(:company).permit(:name)
