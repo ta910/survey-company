@@ -1,5 +1,4 @@
 class Admins::CompaniesController < AdminsController
-
   def index
     @companies = Company.order("created_at DESC").page(params[:page]).per(5)
   end
@@ -35,7 +34,7 @@ class Admins::CompaniesController < AdminsController
   end
 
   def destroy
-    company.destroy
+    company.destroy!
     redirect_to admins_companies_path
   end
 
@@ -63,5 +62,4 @@ class Admins::CompaniesController < AdminsController
   def user
     User.find(user_params[:user_id])
   end
-
 end

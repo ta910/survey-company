@@ -6,5 +6,4 @@ class User < ApplicationRecord
 
   belongs_to :company
   enum status: { normal: 0, main: 1 }
-
 end

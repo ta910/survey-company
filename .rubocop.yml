@@ -8,7 +8,6 @@ inherit_from:
   - 'config/rubocop/.rubocop_enabled.yml'
   - 'config/rubocop/.rubocop_disabled.yml'
   - 'config/rubocop/.rubocop_ignore.yml'
-  - '.rubocop_todo.yml'
 
 AllCops:
   TargetRubyVersion: 2.3
