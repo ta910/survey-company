@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'roots#top'
 
   devise_for :admins, controllers: {
@@ -38,5 +37,4 @@ Rails.application.routes.draw do
   resources :users, only: :show do
     resources :messages, only: [:new, :create]
   end
-
 end
