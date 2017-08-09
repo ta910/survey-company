@@ -10,7 +10,8 @@ class Admins::CompaniesController < AdminsController
 
   def create
     Company.create_with_main_user!(company_name: company_params[:name], user_name: user_params[:name],
-       email: user_params[:email], password: user_params[:password], password_confirmation: user_params[:password_confirmation])
+       email: user_params[:email], password: user_params[:password],
+        password_confirmation: user_params[:password_confirmation])
     redirect_to admins_companies_path
   rescue
     @company = Company.new
@@ -25,7 +26,8 @@ class Admins::CompaniesController < AdminsController
 
   def update
     company.update_with_main_user!(company_name: company_params[:name], user_name: user_params[:name],
-       email: user_params[:email], password: user_params[:password], password_confirmation: user_params[:password_confirmation])
+       email: user_params[:email], password: user_params[:password],
+        password_confirmation: user_params[:password_confirmation])
     redirect_to admins_companies_path
   rescue ActiveRecord::RecordInvalid
     @company = company
@@ -47,23 +49,23 @@ class Admins::CompaniesController < AdminsController
 
   private
 
-  def index_params
-    params.permit(:page).merge(per: 5)
-  end
+    def index_params
+      params.permit(:page).merge(per: 5)
+    end
 
-  def company_params
-    params.require(:company).permit(:name)
-  end
+    def company_params
+      params.require(:company).permit(:name)
+    end
 
-  def user_params
-    params.require(:company).require(:user).permit(:name, :email, :password, :password_confirmation, :user_id)
-  end
+    def user_params
+      params.require(:company).require(:user).permit(:name, :email, :password, :password_confirmation, :user_id)
+    end
 
-  def company
-    Company.find_by!(name: params[:name])
-  end
+    def company
+      Company.find_by!(name: params[:name])
+    end
 
-  def user
-    User.find(user_params[:user_id])
-  end
+    def user
+      User.find(user_params[:user_id])
+    end
 end

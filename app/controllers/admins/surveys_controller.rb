@@ -24,19 +24,19 @@ class Admins::SurveysController < AdminsController
 
   private
 
-  def index_params
-    params.permit(:page).merge(per: 5)
-  end
+    def index_params
+      params.permit(:page).merge(per: 5)
+    end
 
-  def survey_params
-    params.require(:survey).permit(:name)
-  end
+    def survey_params
+      params.require(:survey).permit(:name)
+    end
 
-  def questions_params
-    params.require(:survey).require(:questions).map { |u| u.permit(:name, :status, choices: [%w(name)]) }
-  end
+    def questions_params
+      params.require(:survey).require(:questions).map { |u| u.permit(:name, :status, choices: [%w(name)]) }
+    end
 
-  def survey
-    Survey.find(params[:id])
-  end
+    def survey
+      Survey.find(params[:id])
+    end
 end
