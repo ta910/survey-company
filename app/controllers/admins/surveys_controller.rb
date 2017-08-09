@@ -25,7 +25,9 @@ class Admins::SurveysController < AdminsController
   private
 
     def index_params
-      params.permit(:page).merge(per: 5)
+      @index_params = params.permit(:page, :per)
+      @index_params = @index_params.merge(per: 5) if params[:per].blank?
+      @index_params
     end
 
     def survey_params
