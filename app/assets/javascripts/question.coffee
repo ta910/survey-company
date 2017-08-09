@@ -52,10 +52,6 @@ $ ->
       when 'check_box'
         field.append(CheckBoxHTML(num))
 
-  appendChoiceHTML = (num) ->
-    html = """<li><input placeholder="選択肢" type="text" name="survey[questions][][choices][][name]" id="survey_question_choices_[#{num}]"></li>"""
-    $('.choices').append(html)
-
   $('#add-question-button').on 'click', ->
     questionNum += 1
     questionType = $('#survey_question_status').val()
@@ -66,4 +62,5 @@ $ ->
 
   $('#question-field').on 'click', '#add-choice-button', ->
     choiceNum += 1
-    appendChoiceHTML(choiceNum)
+    html = """<li><input placeholder="選択肢" type="text" name="survey[questions][][choices][][name]" id="survey_question_choices_[#{choiceNum}]"></li>"""
+    $(this).siblings('.choices').append(html)
