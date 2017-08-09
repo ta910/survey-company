@@ -5,10 +5,12 @@ class Question < ApplicationRecord
 
   class << self
     def create_with_choices!(name:, status:, survey_id:, choices_params:)
-      question = create(name: name, status: status, survey_id: survey_id)
-      if choices_params.present?
-        choices_params.each do |choice_params|
-          QuestionChoice.create!(text: choice_params[:name], question_id: question.id)
+      ActiveRecord::Base.transaction do
+        question = create!(name: name, status: status, survey_id: survey_id)
+        if choices_params.present?
+          choices_params.each do |choice_params|
+            QuestionChoice.create!(text: choice_params[:name], question_id: question.id)
+          end
         end
       end
     end
