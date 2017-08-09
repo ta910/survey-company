@@ -1,0 +1,46 @@
+$ ->
+
+  questionNum = 0
+
+  TextFieldHTML = (num) ->
+    """<div class="question">
+         <h3>質問</h3>
+         <input id="delete-question-button" type="button" value="削除"><br>
+         <input placeholder="質問内容(回答短)" type="text" name="survey[questions][][name]" id="survey_questions_#{num}_name">
+         <input type="hidden" value="text_field" name="survey[questions][][status]" id="survey_questions_#{num}_status">
+       </div>"""
+
+  TextAreaHTML = (num) ->
+    """<div class="question">
+         <h3>質問</h3>
+         <input id="delete-question-button" type="button" value="削除"><br>
+         <input placeholder="質問内容(回答長)" type="text" name="survey[questions][][name]" id="survey_questions_[#{num}]_name">
+         <input type="hidden" value="textarea" name="survey[questions][][status]" id="survey_questions_#{num}_status">
+       </div>"""
+
+  RadioButtonHTML = ->
+    """"""
+
+
+  CheckBoxHTML =  ->
+    """"""
+
+  appendQuestionHTML = (num, type) ->
+    field = $('#question-field')
+    switch type
+      when 'text_field'
+        field.append(TextFieldHTML(num))
+      when 'textarea'
+        field.append(TextAreaHTML(num))
+      when 'radio_button'
+        field.append(RadioButtonHTML())
+      when 'check_box'
+        field.append(CheckBoxHTML())
+
+  $('#add-question-button').on 'click', ->
+    questionNum += 1
+    questionType = $('#survey_question_status').val()
+    appendQuestionHTML(questionNum, questionType)
+
+  $('#question-field').on 'click', '#delete-question-button', ->
+    $(this).parent('.question').remove()

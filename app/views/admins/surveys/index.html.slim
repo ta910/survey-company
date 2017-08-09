@@ -1,13 +1,13 @@
-.survey-index
-  = link_to admins_surveys_path
-    | アンケート一覧
 .new-survey
   = link_to new_admins_survey_path
     | アンケート作成
+.company-index
+  = link_to admins_companies_path
+    | 法人一覧
 .new-company
   = link_to new_admins_company_path
     | 法人追加
 
-== render @companies
+== render @surveys
 
-= paginate(@companies)
+= paginate(@surveys)
