@@ -4,7 +4,7 @@ class Question < ApplicationRecord
   enum status: { text_field: 0, textarea: 1, radio_button: 2, check_box: 3 }
 
   class << self
-    def create_with_choices!(name:, status:, survey_id:, choices_params:)
+    def create_with_choices!(name:, status:, survey_id:, choices_params: nil)
       ActiveRecord::Base.transaction do
         question = create!(name: name, status: status, survey_id: survey_id)
         if choices_params.present?
