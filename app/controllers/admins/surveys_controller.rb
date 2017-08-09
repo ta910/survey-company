@@ -33,7 +33,7 @@ class Admins::SurveysController < AdminsController
   end
 
   def questions_params
-    params.require(:survey).require(:questions).map { |u| u.permit(:name, :status) }
+    params.require(:survey).require(:questions).map { |u| u.permit(:name, :status, choices: [%w(name)]) }
   end
 
   def survey
