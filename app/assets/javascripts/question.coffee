@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'turbolinks:load', ->
 
   questionNum = 0
   choiceNum = 0
