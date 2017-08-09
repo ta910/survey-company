@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'roots#top'
 
   devise_for :admins, controllers: {
@@ -20,13 +19,13 @@ Rails.application.routes.draw do
     resources :companies, param: :name, except: [:show] do
       resources :surveys, only: [:index, :show]
     end
-    resources :surveys, only: [:new, :create] do
+    resources :surveys, only: [:index, :new, :create, :destroy] do
       resources :questions, only: [:new, :create]
     end
   end
 
   resources :companies, param: :name, only: [] do
-    resources :users, only: [:index, :delete]
+    resources :users, only: [:index, :destroy]
     resources :surveys, only: [:index, :show] do
       member do
         get :answer_new
@@ -38,5 +37,4 @@ Rails.application.routes.draw do
   resources :users, only: :show do
     resources :messages, only: [:new, :create]
   end
-
 end

@@ -1,0 +1,12 @@
+h1.form_message
+  | 新規アンケート
+.form.form-survey
+  = form_with(model: [ :admins, @survey ], url: admins_surveys_path) do |f|
+    .survey-content
+      = f.text_field :name, placeholder: 'アンケートタイトル'
+    .form.form-question
+      = f.fields_for @question do |u|
+        #question-field
+        = u.select :status, Question.statuses.keys.to_a, {}
+        input#add-question-button type="button" value="質問追加"
+    = f.submit "作成"

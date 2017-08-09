@@ -23,13 +23,13 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :company_id])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :image])
-  end
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :company_id])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :image])
+    end
 
-  def authorized_user!
-    company = Company.find_by(name: params[:company_name])
-    redirect_to root_path unless company.has_user?(current_user)
-  end
+    def authorized_user!
+      company = Company.find_by(name: params[:company_name])
+      redirect_to root_path unless company.has_user?(current_user)
+    end
 end
