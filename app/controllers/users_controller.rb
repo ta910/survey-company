@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, :authorized_main!, :authorized_user!
 
   def index
-    @users = current_user.company.users.normal
+    @users = current_user.company.normal_users
               .order(created_at: 'DESC').page(index_params[:page]).per(index_params[:per])
   end
 

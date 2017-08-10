@@ -10,6 +10,10 @@ class Company < ApplicationRecord
     users.main.first
   end
 
+  def normal_users
+    users.normal
+  end
+
   def update_with_main_user!(company_name:, user_name:, email:, password:, password_confirmation:)
     ActiveRecord::Base.transaction do
       update!(name: company_name)
