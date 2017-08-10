@@ -7,13 +7,7 @@ class ApplicationController < ActionController::Base
     when Admin
       admins_companies_path
     when User
-      if current_user.normal?
-        company_surveys_path(current_user.company.name)
-      elsif current_user.main?
-        company_users_path(current_user.company.name)
-      else
-        root_path
-      end
+      company_user_path(current_user.company.name, current_user)
     end
   end
 
