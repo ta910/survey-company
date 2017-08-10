@@ -1,0 +1,7 @@
+.survey-index
+  = link_to company_surveys_path(current_user.company.name)
+    | アンケート一覧
+
+== render @users
+
+= paginate(@users)

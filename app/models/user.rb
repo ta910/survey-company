@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :company
-  validates :company_id, uniqueness: true
+  validates :company_id, uniqueness: true, if: :main_user?
   enum status: { normal: 0, main: 1 }
+
+  def main_user?
+    main?
+  end
 end
