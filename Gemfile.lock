@@ -60,6 +60,10 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
     byebug (9.0.6)
+    carrierwave (1.1.0)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     checkstyle_filter-git (1.1.0)
       git_diff_parser
       thor
@@ -373,6 +377,7 @@ DEPENDENCIES
   brakeman
   bullet
   byebug
+  carrierwave
   checkstyle_filter-git
   coffee-rails (~> 4.2)
   devise
