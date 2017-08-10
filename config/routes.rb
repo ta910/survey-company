@@ -35,6 +35,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: :show do
-    resources :messages, only: [:new, :create]
+    resources :messages, only: [:index, :new, :create]
   end
 end
