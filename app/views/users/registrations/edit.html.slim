@@ -11,10 +11,10 @@ h2
     = f.label :email
     br
     = f.email_field :email
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    div
-      | Currently waiting confirmation for: 
-      = resource.unconfirmed_email
+  .field
+    = f.label :image
+    br
+    = f.file_field :image
   .field
     = f.label :password
     i

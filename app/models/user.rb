@@ -6,5 +6,5 @@ class User < ApplicationRecord
   belongs_to :company
   validates :company_id, uniqueness: true, if: 'main?'
   enum status: { normal: 0, main: 1 }
-
+  mount_uploader :image, ImagesUploader
 end
