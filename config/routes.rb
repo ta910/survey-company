@@ -25,16 +25,14 @@ Rails.application.routes.draw do
   end
 
   resources :companies, param: :name, only: [] do
-    resources :users, only: [:index, :destroy]
+    resources :users, only: [:index, :show, :destroy] do
+      resources :messages, only: [:index, :new, :create]
+    end
     resources :surveys, only: [:index, :show] do
       member do
         get :answer_new
         post :answer_create
       end
     end
-  end
-
-  resources :users, only: :show do
-    resources :messages, only: [:index, :new, :create]
   end
 end
