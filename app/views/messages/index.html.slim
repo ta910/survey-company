@@ -1,0 +1,14 @@
+.message
+
+ul.messages
+
+  == render @messages
+
+= form_with(model: @message, url: company_user_messages_path(@message.user.company, @message.user),
+   html: { id: "new_message" }) do |f|
+  #form_message
+    = f.text_field :body, row: "1", placeholder: "type a message"
+    br
+    = f.label class:"photo"
+      = f.file_field :image
+  = f.submit "Send", class: "send-btn"

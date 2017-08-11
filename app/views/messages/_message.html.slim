@@ -1,0 +1,9 @@
+li.message
+  .message_content
+    = message.user.name
+    br
+    = message.time
+    br
+    = message.body
+    -if message.image.present?
+      = image_tag(message.image.to_s)
