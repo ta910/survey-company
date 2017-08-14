@@ -6,7 +6,8 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(message_params)
+    @message = Message.new(body: message_params[:body], image: message_params[:image],
+      sender_id: message_params[:sender_id], recipient_id: message_params[:recipient_id])
     if @message.save
       respond_to do |format|
         format.html { redirect_to :back }
@@ -20,8 +21,8 @@ class MessagesController < ApplicationController
   private
 
     def message_params
-      params.require(:message).permit(:body, :image)
-        .merge(sender_id: current_user.id, recipient_id: recipient_id)
+      params.require(:message).permit(:body, :image).
+        merge(sender_id: current_user.id, recipient_id: recipient_id)
     end
 
     def recipient_id
@@ -46,7 +47,7 @@ class MessagesController < ApplicationController
     end
 
     def messages
-      Message.includes(:sender)
-        .where("sender_id = ? OR recipient_id = ?", user.id, user.id)
+      Message.includes(:sender).
+        where('sender_id = ? OR recipient_id = ?', user.id, user.id)
     end
 end
