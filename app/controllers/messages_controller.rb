@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   def index
     @message = current_user.messages.new
-    @messages = Message.includes(:user)
+    @messages = Messages.includes(:user)
   end
 
   def create
@@ -25,5 +25,9 @@ class MessagesController < ApplicationController
 
     def company
       Company.find_by!(params[:name])
+    end
+
+    def user
+      User.find(params[:id])
     end
 end
