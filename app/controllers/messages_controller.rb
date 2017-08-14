@@ -1,8 +1,8 @@
 class MessagesController < ApplicationController
+  before_action :set_instance, only: [:index, :create]
+
   def index
-    @user = user
     @message = Message.new
-    @messages = messages
   end
 
   def create
@@ -13,8 +13,6 @@ class MessagesController < ApplicationController
         format.json
       end
     else
-      @user = user
-      @messages = messages
       render :index
     end
   end
@@ -32,6 +30,11 @@ class MessagesController < ApplicationController
       else
         current_user.company.main_user.id
       end
+    end
+
+    def set_instance
+      @user = user
+      @messages = messages
     end
 
     def company

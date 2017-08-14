@@ -5,7 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :messages
   belongs_to :company
-  # validates :company_id, uniqueness: true, if: 'main?'
   enum status: { normal: 0, main: 1 }
   mount_uploader :image, ImagesUploader
 end

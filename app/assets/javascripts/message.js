@@ -37,7 +37,6 @@ $(document).on("turbolinks:load", function() {
     })
     .done(function(data) {
       var html = buildHTML(data);
-      console.log(html);
       $('ul.messages').append(html);
       message[0].reset();
       $('input').prop('disabled', false);

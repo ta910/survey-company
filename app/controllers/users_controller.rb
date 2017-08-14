@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, :authorized_user!
-  before_action :authorized_main!, only: [:destroy]
+  before_action :authorized_main!, only: :destroy
   before_action :authorized_mypage!, only: :show
 
   def show
