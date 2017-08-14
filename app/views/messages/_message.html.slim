@@ -1,9 +1,19 @@
 li.message
-  .message_content
-    = message.user.name
+  - if message.sender_id == current_user.id
+    .sender_message_content
+    = message.sender.name
     br
     = message.time
     br
     = message.body
-    -if message.image.present?
+    - if message.image.present?
       = image_tag(message.image.to_s)
+  - else
+    .recipient_message.content
+      = message.sender.name
+      br
+      = message.time
+      br
+      = message.body
+      - if message.image.present?
+        = image_tag(message.image.to_s)

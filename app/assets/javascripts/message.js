@@ -13,7 +13,7 @@ $(document).on("turbolinks:load", function() {
     }
     var html =
       `<li class="message">
-        <div class="message_content">
+        <div class="sender_message_content">
           ${message.name}
           <br>
           ${message.time}
