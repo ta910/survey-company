@@ -1,19 +1,21 @@
 class MessagesController < ApplicationController
-  before_action :set_instance, only: [:index, :create]
-
   def index
     @message = Message.new
+    @user = user
+    @messages = messages
   end
 
   def create
     @message = Message.new(body: message_params[:body], image: message_params[:image],
-      sender_id: message_params[:sender_id], recipient_id: message_params[:recipient_id])
+      sender_id: current_user.id, recipient_id: recipient_id)
     if @message.save
       respond_to do |format|
         format.html { redirect_to :back }
         format.json
       end
     else
+      @user = user
+      @messages = messages
       render :index
     end
   end
@@ -21,8 +23,7 @@ class MessagesController < ApplicationController
   private
 
     def message_params
-      params.require(:message).permit(:body, :image).
-        merge(sender_id: current_user.id, recipient_id: recipient_id)
+      params.require(:message).permit(:body, :image)
     end
 
     def recipient_id
@@ -31,11 +32,6 @@ class MessagesController < ApplicationController
       else
         current_user.company.main_user.id
       end
-    end
-
-    def set_instance
-      @user = user
-      @messages = messages
     end
 
     def company
@@ -48,6 +44,7 @@ class MessagesController < ApplicationController
 
     def messages
       Message.includes(:sender).
-        where('sender_id = ? OR recipient_id = ?', user.id, user.id)
+        where(sender_id: user.id).or(Message.includes(:sender).
+          where(recipient_id: user.id))
     end
 end
