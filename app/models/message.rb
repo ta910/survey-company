@@ -19,18 +19,15 @@ class Message < ApplicationRecord
 
   class << self
     def create_text_or_image!(text:, image:, sender_id:, recipient_id:)
+      raise if text.blank? || image.blank?
       ActiveRecord::Base.transaction do
         message = Message.create!(sender_id: sender_id, recipient_id: recipient_id)
-        if text.present? || image.present?
-          MessageText.create!(body: text,
-           message_id: message.id) if text.present?
-          MessageImage.create!(body: image,
-           message_id: message.id) if image.present?
-          return message
-        else
-          raise
-        end
+        MessageText.create!(body: text,
+         message_id: message.id) if text.present?
+        MessageImage.create!(body: image,
+         message_id: message.id) if image.present?
       end
+      return message
     end
   end
 end
