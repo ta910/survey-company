@@ -1,4 +1,2 @@
-h5
-  | #{survey.name}
-  / = link_to "#{survey.name}", answer_new_company_survey_path()
+h5 = link_to "#{survey.name}", answer_new_company_survey_path(current_user.company.name, survey.id)
 br

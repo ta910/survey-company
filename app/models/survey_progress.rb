@@ -1,0 +1,2 @@
+class SurveyProgress < ApplicationRecord
+end

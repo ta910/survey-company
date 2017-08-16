@@ -5,6 +5,11 @@ class SurveysController < ApplicationController
     @surveys = Survey.order(created_at: 'DESC').page(index_params[:page]).per(index_params[:per])
   end
 
+  def answer_new
+    @survey = Survey.find(params[:id])
+    @questions = @survey.questions
+  end
+
   private
 
     def index_params

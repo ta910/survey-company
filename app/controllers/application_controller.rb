@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     end
 
     def authorized_user!
-      company = Company.find_by(name: params[:company_name])
+      company = Company.find_by!(name: params[:company_name])
       raise ActionController::BadRequest unless company.has_user?(current_user)
     end
 
