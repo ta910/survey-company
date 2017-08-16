@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  rescue_from ActionController::BadRequest do |e|
+    redirect_to root_path
+  end
+
   private
 
     def configure_permitted_parameters
@@ -24,6 +28,14 @@ class ApplicationController < ActionController::Base
 
     def authorized_user!
       company = Company.find_by(name: params[:company_name])
-      redirect_to root_path unless company.has_user?(current_user)
+      raise ActionController::BadRequest unless company.has_user?(current_user)
+    end
+
+    def validate_user!
+      raise ActionController::BadRequest if current_user != user && current_user.normal?
+    end
+
+    def user
+      User.find(params[:id])
     end
 end

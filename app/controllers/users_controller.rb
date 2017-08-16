@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, :authorized_user!
-  before_action :authorized_main!, only: :destroy
   before_action :validate_user!, only: :show
 
   def show
@@ -12,18 +11,4 @@ class UsersController < ApplicationController
     user.destroy!
     redirect_to company_users_path(current_user.company.name)
   end
-
-  private
-
-    def authorized_main!
-      redirect_to root_path unless current_user.main?
-    end
-
-    def validate_user!
-      redirect_to root_path if current_user != user && current_user.normal?
-    end
-
-    def user
-      User.find(params[:id])
-    end
 end
