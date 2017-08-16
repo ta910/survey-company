@@ -1,0 +1,23 @@
+li.message
+  - if message.sender_id == current_user.id
+    .sender_message_content
+      = sender_name(message)
+      br
+      = time(message)
+      br
+      - if message.message_text.present?
+        = message.message_text.body
+        br
+      - if message.message_image.present?
+        = image_tag(message.message_image.body.to_s)
+  - else
+    .recipient_message.content
+      = sender_name(message)
+      br
+      = time(message)
+      br
+      - if message.message_text.present?
+        = message.message_text.body
+        br
+      - if message.message_image.present?
+        = image_tag(message.message_image.body.to_s)

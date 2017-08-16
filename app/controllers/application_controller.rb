@@ -7,18 +7,16 @@ class ApplicationController < ActionController::Base
     when Admin
       admins_companies_path
     when User
-      if current_user.normal?
-        company_surveys_path(current_user.company.name)
-      elsif current_user.main?
-        company_users_path(current_user.company.name)
-      else
-        root_path
-      end
+      company_user_path(current_user.company.name, current_user)
     end
   end
 
   def after_sign_out_path_for(resource)
     root_path
+  end
+
+  rescue_from ActionController::BadRequest do |e|
+    redirect_to root_path
   end
 
   private
@@ -30,6 +28,14 @@ class ApplicationController < ActionController::Base
 
     def authorized_user!
       company = Company.find_by(name: params[:company_name])
-      redirect_to root_path unless company.has_user?(current_user)
+      raise ActionController::BadRequest unless company.has_user?(current_user)
+    end
+
+    def validate_user!
+      raise ActionController::BadRequest if current_user != user && current_user.normal?
+    end
+
+    def user
+      User.find(params[:id])
     end
 end
