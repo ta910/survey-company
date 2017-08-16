@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, :authorized_user!
   before_action :authorized_main!, only: :destroy
-  before_action :authorized_mypage!, only: :show
+  before_action :validate_user!, only: :show
 
   def show
     @user = user
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       redirect_to root_path unless current_user.main?
     end
 
-    def authorized_mypage!
+    def validate_user!
       redirect_to root_path if current_user != user && current_user.normal?
     end
 

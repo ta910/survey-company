@@ -6,24 +6,22 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(body: message_params[:body], image: message_params[:image],
+    @message = Message.create_text_or_image!(text: message_params[:text], image: message_params[:image],
       sender_id: current_user.id, recipient_id: recipient_id)
-    if @message.save
-      respond_to do |format|
-        format.html { redirect_to :back }
-        format.json
-      end
-    else
-      @user = user
-      @messages = messages
-      render :index
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @message.for_js }
     end
+  rescue
+    @user = user
+    @messages = messages
+    render :index
   end
 
   private
 
     def message_params
-      params.require(:message).permit(:body, :image)
+      params.require(:message).permit(:text, :image)
     end
 
     def recipient_id
@@ -43,8 +41,8 @@ class MessagesController < ApplicationController
     end
 
     def messages
-      Message.includes(:sender).
-        where(sender_id: user.id).or(Message.includes(:sender).
+      Message.includes([:sender, :message_text, :message_image]).
+        where(sender_id: user.id).or(Message.includes([:sender, :message_text, :message_image]).
           where(recipient_id: user.id))
     end
 end

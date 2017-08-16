@@ -7,7 +7,7 @@ ul.messages
 = form_with(model: @message, url: company_user_messages_path(@user.company.name, @user),
    html: { id: "new_message" }) do |f|
   #form_message
-    = f.text_field :body, row: "1", placeholder: "type a message"
+    = f.text_field :text, row: "1", placeholder: "type a message"
     br
     = f.label class:"photo"
       = f.file_field :image

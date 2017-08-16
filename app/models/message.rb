@@ -1,16 +1,36 @@
 class Message < ApplicationRecord
-  belongs_to :sender, class_name: 'User', foreign_key: :'sender_id'
-  belongs_to :recipient, class_name: 'User', foreign_key: :'recipient_id'
-  validates :body_or_image, presence: true
-  mount_uploader :image, ImagesUploader
+  belongs_to :sender, class_name: 'User', foreign_key: 'sender_id'
+  belongs_to :recipient, class_name: 'User', foreign_key: 'recipient_id'
+  has_one :message_text
+  has_one :message_image
 
-  def time
-    created_at.strftime("%Y年%m月%d日 %H時%M分")
+  def for_js
+    if message_text.present? && message_image.present?
+      { name: sender.name, time: created_at.strftime("%Y年%m月%d日 %H時%M分"),
+        text: message_text.body, image: message_image.body.to_s }
+    elsif message_text.present?
+      { name: sender.name, time: created_at.strftime("%Y年%m月%d日 %H時%M分"),
+        text: message_text.body }
+    else
+      { name: sender.name, time: created_at.strftime("%Y年%m月%d日 %H時%M分"),
+        image: message_image.body.to_s }
+    end
   end
 
-  private
-
-    def body_or_image
-      body.presence or image.presence
+  class << self
+    def create_text_or_image!(text:, image:, sender_id:, recipient_id:)
+      ActiveRecord::Base.transaction do
+        message = Message.create!(sender_id: sender_id, recipient_id: recipient_id)
+        if text.present? || image.present?
+          MessageText.create!(body: text,
+           message_id: message.id) if text.present?
+          MessageImage.create!(body: image,
+           message_id: message.id) if image.present?
+          return message
+        else
+          raise
+        end
+      end
     end
+  end
 end
