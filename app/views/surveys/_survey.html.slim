@@ -1,2 +1,9 @@
-h5 = link_to "#{survey.name}", answer_new_company_survey_path(current_user.company.name, survey.id)
+h5
+  | #{survey.name}
+- if survey.survey_progress.blank?
+  = link_to "回答", answer_new_company_survey_path(current_user.company.name, survey.id)
+- elsif survey.survey_progress.present? && survey.survey_progress.doing?
+  = link_to "回答再開", answer_new_company_survey_path(current_user.company.name, survey.id)
+- else
+  = link_to "結果", company_survey_path(current_user.company.name, survey.id)
 br

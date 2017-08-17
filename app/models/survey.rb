@@ -1,5 +1,6 @@
 class Survey < ApplicationRecord
   has_many :questions, dependent: :delete_all
+  has_one :survey_progress
 
   class << self
     def create_with_questions!(survey_name:, questions_params:)
@@ -12,12 +13,17 @@ class Survey < ApplicationRecord
       end
     end
 
-    def create_with_answers!(answer_texts_params:, answer_choices_params:)
+    def create_with_answers!(answer_texts_params:, user:)
       ActiveRecord::Base.transaction do
-        answer_texts_params.each{ |key, hash|
-          AnswerText.create!(text: hash[:text], user_id: current_user.id, question_id: key)
-        } if answer_texts_params.present?
+        if answer_texts_params.present?
+          answer_texts_params.each do |answer_text_params|
+            AnswerText.create!(text: answer_text_params[:text],
+             question_id: answer_text_params[:question_id], user_id: user.id)
+          end
         end
+        # answer_choices_params.each{ |key, hash|
+        #   AnswerChoice.create!
+        # }
       end
     end
   end
