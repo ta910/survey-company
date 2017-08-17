@@ -11,5 +11,14 @@ class Survey < ApplicationRecord
         end
       end
     end
+
+    def create_with_answers!(answer_texts_params:, answer_choices_params:)
+      ActiveRecord::Base.transaction do
+        answer_texts_params.each{ |key, hash|
+          AnswerText.create!(text: hash[:text], user_id: current_user.id, question_id: key)
+        } if answer_texts_params.present?
+        end
+      end
+    end
   end
 end

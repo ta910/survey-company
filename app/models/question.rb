@@ -1,6 +1,7 @@
 class Question < ApplicationRecord
   belongs_to :survey
   has_many :question_choices, dependent: :delete_all
+  has_many :answer_texts
   enum status: { text_field: 0, textarea: 1, radio_button: 2, check_box: 3 }
 
   class << self
