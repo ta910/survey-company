@@ -1,5 +1,5 @@
 h5
-  | #{survey.name}
+  | #{survey.name} (#{done_user(survey, @company)}/#{@company.users.length}人 回答済)
 - if survey.survey_progress.blank?
   = link_to "回答", answer_new_company_survey_path(current_user.company.name, survey.id)
 - elsif survey.survey_progress.present? && survey.survey_progress.doing?

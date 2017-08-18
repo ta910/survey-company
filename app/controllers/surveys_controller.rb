@@ -3,6 +3,7 @@ class SurveysController < ApplicationController
 
   def index
     @surveys = Survey.includes(:survey_progress).order(created_at: 'DESC').page(index_params[:page]).per(index_params[:per])
+    @company = company
   end
 
   def answer_new
@@ -48,6 +49,10 @@ class SurveysController < ApplicationController
   end
 
   private
+
+    def company
+      Company.find_by!(params[:name])
+    end
 
     def survey
       Survey.find(params[:id])
