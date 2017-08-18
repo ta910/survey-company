@@ -8,7 +8,6 @@ class SurveysController < ApplicationController
   def answer_new
     @survey = survey
     @questions = questions
-    @answer_text = AnswerText.new
     @answer_choice = AnswerChoice.new
   end
 
@@ -25,6 +24,27 @@ class SurveysController < ApplicationController
     @answer_text = AnswerText.new
     @answer_choice = AnswerChoice.new
     render :answer_new
+  end
+
+  def answer_edit
+    @survey = survey
+    @questions = questions
+    @answer_choice = AnswerChoice.new
+  end
+
+  def answer_update
+    ActiveRecord::Base.transaction do
+      survey.update_with_answers!(answer_texts_params: answer_texts_params,
+       answer_choices_params: answer_choices_params, user: current_user)
+      update_status!
+    end
+    redirect_to company_surveys_path(current_user.company.name)
+  rescue
+    @survey = survey
+    @questions = questions
+    @answer_text = answer_text
+    @answer_choice = answer_choice
+    render :answer_edit
   end
 
   private
