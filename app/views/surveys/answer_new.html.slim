@@ -7,19 +7,19 @@ h2
     - if question.status == 'text_field'
       = f.fields_for :answer_text, index: question.id do |t|
         = t.text_field :text, name: "answer_text[][text]"
-        = f.hidden_field :question_id, value: question.id, name: "answer_text[][question_id]"
+        = t.hidden_field :question_id, value: question.id, name: "answer_text[][question_id]"
     - elsif question.status == 'textarea'
       = f.fields_for :answer_text, index: question.id do |t|
         = t.text_area :text, name: "answer_text[][text]"
-        = f.hidden_field :question_id, value: question.id, name: "answer_text[][question_id]"
+        = t.hidden_field :question_id, value: question.id, name: "answer_text[][question_id]"
     - else
-      = f.fields_for @answer_choice do |c|
+      = f.fields_for @answer_choice, index: question.id do |c|
         - if question.status == 'radio_button'
-          = c.collection_radio_buttons :question_choice_id, question.question_choices, :id, :text, name: "answer_choice[][question_choice_id]"
-          = f.hidden_field :question_id, value: question.id
+          = c.collection_radio_buttons :question_choice_id, question.question_choices, :id, :text
+          = c.hidden_field :question_id, value: question.id, name: "answer_choice[#{question.id}][question_id]"
         - else
           = c.collection_check_boxes :question_choice_id, question.question_choices, :id, :text, include_hidden: false
-          = f.hidden_field :question_id, value: question.id
+          = c.hidden_field :question_id, value: question.id, name: "answer_choice[#{question.id}][question_id]"
     br
   = f.submit '一時保存', name: 'yet'
   = f.submit '回答', name: 'done', data: {confirm: "今後回答は編集できませんがよろしいですか？"}
