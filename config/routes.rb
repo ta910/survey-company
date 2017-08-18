@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     resources :surveys, only: [:index, :show] do
       member do
         get :answer_new
+        get :answer_edit
+        patch :answer_update
         post :answer_create
       end
     end
