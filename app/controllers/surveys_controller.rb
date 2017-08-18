@@ -96,8 +96,10 @@ class SurveysController < ApplicationController
     def update_status!
       if params[:yet].present?
         SurveyProgress.find_or_initialize_by(survey_id: survey.id, user_id: current_user.id).doing!
-      else
+      elsif params[:done].present?
         SurveyProgress.find_or_initialize_by(survey_id: survey.id, user_id: current_user.id).done!
+      else
+        raise
       end
     end
 end
