@@ -6,7 +6,7 @@ class Survey < ApplicationRecord
     ActiveRecord::Base.transaction do
       if answer_texts_params.present?
         answer_texts_params.each do |answer_text_params|
-          answer_text = AnswerText.where(question_id: answer_text_params[:question_id], user_id: user.id)
+          answer_text = AnswerText.find_by!(question_id: answer_text_params[:question_id], user_id: user.id)
           answer_text.update(text: answer_text_params[:text])
         end
       end
