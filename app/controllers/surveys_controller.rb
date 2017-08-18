@@ -79,10 +79,15 @@ class SurveysController < ApplicationController
       if params[:answer_choice].present?
         survey.questions.each do |question|
           if params[:answer_choice][:"#{question.id}"].present?
-            temporal_params << params.require(:answer_choice).require(:"#{question.id}").
-             permit(:question_id, :question_choice_id) unless array?(question.id)
-            temporal_params << params.require(:answer_choice).require(:"#{question.id}").
-             permit(:question_id, question_choice_id: []) if array?(question.id)
+            if array?(question.id)
+              temporal_params << params.require(:answer_choice).require(:"#{question.id}").
+               permit(:question_id, question_choice_id: [])
+            else
+              temporal_params << params.require(:answer_choice).require(:"#{question.id}").
+               permit(:question_id, :question_choice_id)
+              v = temporal_params.last[:question_choice_id]
+              temporal_params.last[:question_choice_id] = [v]
+            end
           end
         end
       end
