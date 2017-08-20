@@ -1,0 +1,35 @@
+.user-info {
+  height: 150px;
+  &-image {
+    height: 100%;
+    width: 400px;
+    padding: 25px 150px;
+    float: left;
+    img.user-img {
+      border-radius: 50%;
+      width:  100px;
+      height: 100px;
+    }
+  }
+  &-maininfo {
+    height: 100%;
+    width: calc(100% - 800px);
+    padding: 0px;
+    float: left;
+  }
+  &-edit {
+    height: 100%;
+    width: 400px;
+    float: left;
+    padding: 58px;
+    a {
+      display:inline-block;
+      float: right;
+      line-height: 40px;
+      color: #38aeF0;
+      padding: 0 20px;
+      border: 2px solid;
+      font-size: 14px;
+    }
+  }
+}

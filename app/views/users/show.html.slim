@@ -1,14 +1,17 @@
 .user-info
-  h3
-    | company: #{@user.company.name}
-  = image_tag @user.image.thumb.url
-  h3
-    | username: #{@user.name}
-  h3
-    | email: #{@user.email}
-- if current_user == @user
-  = link_to "ユーザー情報編集", edit_user_registration_path(@user.company.name)
-br
+  .user-info-image
+    = image_tag @user.image.thumb.url, class: 'user-img'
+  .user-info-maininfo
+    h3
+      | company: #{@user.company.name}
+    h3
+      | username: #{@user.name}
+    h3
+      | email: #{@user.email}
+  .user-info-edit
+    - if current_user == @user
+      = link_to "ユーザー情報編集", edit_user_registration_path(@user.company.name)
+
 - if current_user.main?
   == render @users
 - else
