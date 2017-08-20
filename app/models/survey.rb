@@ -66,5 +66,13 @@ class Survey < ApplicationRecord
            question_id: answer_text_params[:question_id], user_id: user.id)
         end
       end
+
+      def create_answer_choice!(answer_choices_params:, user:)
+        answer_choices_params.each do |answer_choice_params|
+          answer_choice_params[:question_choice_id].each do |question_choice_id|
+            AnswerChoice.create!(question_choice_id: question_choice_id, user_id: user.id)
+          end
+        end
+      end
   end
 end

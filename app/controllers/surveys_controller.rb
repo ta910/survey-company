@@ -68,7 +68,7 @@ class SurveysController < ApplicationController
 
     def index_params
       @index_params = params.permit(:page, :per)
-      @index_params[:per] ||= 5
+      @index_params[:per] ||= 10
       @index_params
     end
 

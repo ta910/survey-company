@@ -4,10 +4,10 @@
       = image_tag current_user.image.thumb.url, class: 'user-img'
   .user-info-maininfo
     h3
-      | company: #{current_user.company.name}
+      | 法人名: #{current_user.company.name}
     h3
-      | username: #{current_user.name}
+      | 名前: #{current_user.name}
     h3
-      | email: #{current_user.email}
+      | emailアドレス: #{current_user.email}
   .user-info-edit
     = link_to "ユーザー情報編集", edit_user_registration_path(current_user.company.name), class: 'panel'
