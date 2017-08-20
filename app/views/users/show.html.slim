@@ -1,7 +1,7 @@
 .user-info
   h3
     | company: #{@user.company.name}
-  = image_tag @user.image.to_s
+  = image_tag @user.image.thumb.url
   h3
     | username: #{@user.name}
   h3
