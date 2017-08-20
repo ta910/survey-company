@@ -1,8 +1,10 @@
-h3
+h3.sub-title
   | ・#{question.name}
 - if question.status == 'text_field' || question.status == 'textarea'
-  - question.answer_texts.each do |answer|
-    h5
-      | ・#{answer.text}
+  - t_answer(question, @company).each do |answer|
+    .panel
+      = answer.text
+- elsif question.status == 'check_box'
+  = column_chart show_results(question, @company)
 - else
-  = pie_chart show_results(question)
+  = pie_chart show_results(question, @company)

@@ -7,7 +7,9 @@ class SurveysController < ApplicationController
   end
 
   def show
+    @survey = survey
     @questions = questions
+    @company = company
   end
 
   def answer_new
