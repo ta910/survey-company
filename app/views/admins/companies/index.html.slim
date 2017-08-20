@@ -1,3 +1,15 @@
-== render @companies
-
-= paginate(@companies)
+.companies.panel.panel-default
+  .panel-body
+    h2.sub-title
+      | 法人一覧
+  table.table.table-striped
+    thead
+      tr
+      th
+      th 法人名
+      th 代表者名
+      th
+      th
+    tbody
+      == render @companies
+  = paginate(@companies)

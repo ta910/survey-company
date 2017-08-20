@@ -1,6 +1,7 @@
 class Admins::SurveysController < AdminsController
   def index
     @surveys = Survey.order(created_at: 'DESC').page(index_params[:page]).per(index_params[:per])
+    @company = company
   end
 
   def new
@@ -10,16 +11,17 @@ class Admins::SurveysController < AdminsController
 
   def create
     Survey.create_with_questions!(survey_name: survey_params[:name], questions_params: questions_params)
-    redirect_to admins_surveys_path
+    redirect_to admins_companies_path
   rescue
     @survey = Survey.new
     @question = Question.new
     render :new
   end
 
-  def destroy
-    survey.destroy!
-    redirect_to admins_surveys_path
+  def show
+    @survey = survey
+    @questions = questions
+    @company = company
   end
 
   private
@@ -40,5 +42,13 @@ class Admins::SurveysController < AdminsController
 
     def survey
       Survey.find(params[:id])
+    end
+
+    def company
+      Company.find_by!(name: params[:company_name])
+    end
+
+    def questions
+      survey.questions.includes(:question_choices)
     end
 end

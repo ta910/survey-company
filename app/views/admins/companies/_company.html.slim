@@ -1,4 +1,9 @@
-= link_to "#{company.name}", admins_company_surveys_path(company.name)
-= link_to "編集", edit_admins_company_path(company.name)
-= link_to "削除", "/admins/companies/#{company.name}", method: :delete
-br
+tr
+  th.scope-row scope="row"
+  td
+    = link_to "#{company.name}", admins_company_surveys_path(company.name)
+  td = company.main_user.name
+  td
+    = link_to "編集", edit_admins_company_path(company.name)
+  td
+    = link_to "削除", "/admins/companies/#{company.name}", method: :delete

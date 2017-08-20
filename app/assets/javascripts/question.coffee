@@ -24,7 +24,7 @@ $(document).on 'turbolinks:load', ->
          <h3>質問</h3>
          <input id="delete-question-button" type="button" value="削除"><br>
          <input placeholder="質問内容(ラジオボタン)" type="text" name="survey[questions][][name]" id="survey_questions_[#{num}]_name"><br>
-         <ul class="choices"></ul>
+         <ol class="choices"></ol>
          <input id="add-choice-button" type="button" value="選択肢追加">
          <input type="hidden" value="radio_button" name="survey[questions][][status]" id="survey_questions_#{num}_status">
        </div>"""
@@ -35,7 +35,7 @@ $(document).on 'turbolinks:load', ->
          <h3>質問</h3>
          <input id="delete-question-button" type="button" value="削除"><br>
          <input placeholder="質問内容(チェックボックス)" type="text" name="survey[questions][][name]" id="survey_questions_[#{num}]_name"><br>
-         <ul class="choices"></ul>
+         <ol class="choices"></ol>
          <input id="add-choice-button" type="button" value="選択肢追加">
          <input type="hidden" value="check_box" name="survey[questions][][status]" id="survey_questions_#{num}_status">
        </div>"""

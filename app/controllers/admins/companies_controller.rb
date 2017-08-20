@@ -50,11 +50,9 @@ class Admins::CompaniesController < AdminsController
   private
 
     def index_params
-      if params[:per].present?
-        params.permit(:page, :per)
-      else
-        params.permit(:page).merge(per: 5)
-      end
+      @index_params = params.permit(:page, :per)
+      @index_params[:per] ||= 10
+      @index_params
     end
 
     def company_params

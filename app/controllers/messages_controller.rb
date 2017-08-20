@@ -38,7 +38,7 @@ class MessagesController < ApplicationController
     end
 
     def company
-      Company.find_by!(params[:name])
+      Company.find_by!(name: params[:name])
     end
 
     def user

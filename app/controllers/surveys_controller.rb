@@ -57,7 +57,7 @@ class SurveysController < ApplicationController
   private
 
     def company
-      Company.find_by!(params[:name])
+      Company.find_by!(name: params[:company_name])
     end
 
     def survey
