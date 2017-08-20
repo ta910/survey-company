@@ -1,0 +1,8 @@
+h3
+  | ・#{question.name}
+- if question.status == 'text_field' || question.status == 'textarea'
+  - question.answer_texts.each do |answer|
+    h5
+      | ・#{answer.text}
+- else
+  = pie_chart show_results(question)

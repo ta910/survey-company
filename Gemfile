@@ -80,3 +80,5 @@ gem 'dotenv-rails'
 gem 'kaminari'
 gem 'carrierwave'
 gem 'rmagick'
+gem 'bootstrap-sass'
+gem "chartkick"

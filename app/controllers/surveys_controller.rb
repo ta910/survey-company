@@ -6,6 +6,10 @@ class SurveysController < ApplicationController
     @company = company
   end
 
+  def show
+    @questions = questions
+  end
+
   def answer_new
     @survey = survey
     @questions = questions

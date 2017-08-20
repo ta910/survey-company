@@ -57,5 +57,14 @@ class Survey < ApplicationRecord
         create_answer_choice!(answer_choices_params: answer_choices_params, user: user) if answer_choices_params.present?
       end
     end
+
+    private
+
+      def create_answer_text!(answer_texts_params:, user:)
+        answer_texts_params.each do |answer_text_params|
+          AnswerText.create!(text: answer_text_params[:text],
+           question_id: answer_text_params[:question_id], user_id: user.id)
+        end
+      end
   end
 end

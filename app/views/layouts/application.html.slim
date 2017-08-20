@@ -6,11 +6,7 @@ html
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag '//www.google.com/jsapi', 'chartkick'
   body
-    .logout
-      - if user_signed_in?
-        = link_to "ログアウト", destroy_user_session_path(current_user.company.name), method: :delete
-        = link_to "マイページへ", company_user_path(current_user.company.name, current_user)
-      - if admin_signed_in?
-        = link_to "ログアウト", destroy_admin_session_path, method: :delete
+    == render 'layouts/header'
     = yield

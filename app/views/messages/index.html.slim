@@ -1,9 +1,6 @@
 .message
-
 ul.messages
-
   == render @messages
-
 = form_with(model: @message, url: company_user_messages_path(@user.company.name, @user),
    html: { id: "new_message" }) do |f|
   #form_message
