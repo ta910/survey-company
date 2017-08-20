@@ -1,9 +1,12 @@
-h5
-  | #{survey.name} (#{done_user(survey, @company)}/#{@company.users.length}人 回答済)
-- if survey.survey_progress.blank?
-  = link_to "回答", answer_new_company_survey_path(@company.name, survey.id)
-- elsif survey.survey_progress.present? && survey.survey_progress.doing?
-  = link_to "回答再開", answer_edit_company_survey_path(@company.name, survey.id)
-- else
-  = link_to "結果", company_survey_path(@company.name, survey.id)
-br
+tr
+  th.scope-row scope="row"
+  td = survey.name
+  td
+    = "#{done_user(survey, @company)}/#{@company.users.length}人"
+  td
+    - if progress(survey, current_user).nil?
+      = link_to "回答", answer_new_company_survey_path(@company.name, survey.id)
+    - elsif progress(survey, current_user).doing?
+      = link_to "回答再開", answer_edit_company_survey_path(@company.name, survey.id)
+    - else
+      = link_to "結果", company_survey_path(@company.name, survey.id)

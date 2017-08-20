@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
   def index
     @message = Message.new
     @user = user
-    @users = current_user.company.users
+    @users = current_user.company.normal_users
     @messages = messages
   end
 

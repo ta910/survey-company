@@ -1,4 +1,4 @@
-li
+li.panel.panel-info
   = link_to "#{user.name}", company_user_messages_path(user.company.name, user), class: "chat_link", 'data-turbolinks': false
   = link_to "削除", company_user_path(user.company.name, user), method: :delete
 

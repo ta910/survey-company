@@ -82,3 +82,4 @@ gem 'carrierwave'
 gem 'rmagick'
 gem 'bootstrap-sass'
 gem "chartkick"
+gem "font-awesome-rails"

@@ -1,6 +1,14 @@
-h2
-  | アンケート一覧
-
-== render @surveys
-
-= paginate(@surveys)
+.surveys.panel.panel-default
+  .panel-body
+    h2.sub-title
+      | アンケート一覧
+  table.table.table-striped
+    thead
+      tr
+      th
+      th アンケート名
+      th 回答者数(社内)
+      th
+    tbody
+      == render @surveys
+  = paginate(@surveys)
