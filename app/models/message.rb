@@ -19,7 +19,6 @@ class Message < ApplicationRecord
 
   class << self
     def create_text_or_image!(text:, image:, sender_id:, recipient_id:)
-      raise if text.blank? || image.blank?
       message = nil
       ActiveRecord::Base.transaction do
         message = Message.create!(sender_id: sender_id, recipient_id: recipient_id)

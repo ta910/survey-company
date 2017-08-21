@@ -1,0 +1,6 @@
+.user-recipient
+  ul
+    - if current_user.main?
+      == render @users
+    - else
+       li = link_to "#{@user.company.main_user.name}", company_user_messages_path(@user.company.name, current_user), class: "chat_link", 'data-turbolinks': false

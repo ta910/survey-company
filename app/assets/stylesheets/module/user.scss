@@ -1,0 +1,82 @@
+@import "mixin/clearfix";
+
+html, body {
+  height: 100%;
+}
+
+.main {
+  height: calc(100% - 50px);
+  .user-info {
+    height: 150px;
+    &-image {
+      height: 100%;
+      width: 400px;
+      padding: 25px 150px;
+      float: left;
+      img.user-img {
+        border-radius: 50%;
+        width:  100px;
+        height: 100px;
+      }
+    }
+    &-maininfo {
+      height: 100%;
+      width: calc(100% - 800px);
+      padding: 0px;
+      float: left;
+    }
+    &-edit {
+      height: 100%;
+      width: 400px;
+      float: left;
+      padding: 58px;
+      a {
+        display:inline-block;
+        float: right;
+        line-height: 40px;
+        color: #38aeF0;
+        padding: 0 20px;
+        border: 2px solid;
+        font-size: 14px;
+      }
+    }
+  }
+  .user-recipient {
+    overflow: auto;
+    height: calc(100% - 150px);
+    width: 300px;
+    float: left;
+    li {
+      border: 1px solid;
+      padding: 0 110px;
+      .chat_link {
+        display: block;
+        padding: 20px 0;
+      }
+    }
+    li:hover {
+      background-color: #E6E6FA
+    }
+  }
+  .user-message {
+    padding: 0 50px;
+    height: calc(100% - 250px);
+    overflow: auto;
+    .sender_message_content {
+      span.name {
+        color: red;
+      }
+    }
+  }
+  input[type="text"] {
+    width: 700px;
+    line-height: 20px;
+    height: 50px;
+    padding: 15px 10px;
+    display: block;
+    float: left;
+  }
+  input[type="submit"] {
+    position: absolute;
+  }
+}

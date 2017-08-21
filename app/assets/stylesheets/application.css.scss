@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.header {
+  @include clearfix;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}

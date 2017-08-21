@@ -1,29 +1,27 @@
-= form_with(model: [ :admins, @company ], url: admins_companies_path) do |f|
-  .company-name
-    = f.label :"法人名"
-    = f.text_field :name
-  p.main-user
-    | 代表者
-  = f.fields_for @user do |u|
-    .field
-      = u.label :name
-      br
-      = u.text_field :name, autofocus: true
-    .field
-      = u.label :email
-      br
-      = u.email_field :email
-    .field
-      = u.label :password
-      - if @minimum_password_length
-        em
-          | (
-          = @minimum_password_length
-          |  characters minimum)
-      br
-      = u.password_field :password, autocomplete: "off"
-    .field
-      = u.label :password_confirmation
-      br
-      = u.password_field :password_confirmation, autocomplete: "off"
-    = u.submit "登録"
+hr.line2
+.row
+  .col-md-3
+    = form_with(model: [ :admins, @company ], url: admins_companies_path) do |f|
+      .field.col-md-12.form-group
+        = f.label :法人名
+        = f.text_field :name, class: 'form-control'
+      p.main-user.sub-title
+        | 代表者
+      = f.fields_for @user do |u|
+        .field.col-md-12.form-group
+          = u.label :名前
+          br
+          = u.text_field :name, autofocus: true, class: 'form-control'
+        .field.col-md-12.form-group
+          = u.label :email
+          br
+          = u.email_field :email, class: 'form-control'
+        .field.col-md-12.form-group
+          = u.label :パスワード
+          br
+          = u.password_field :password, autocomplete: "off", class: 'form-control'
+        .field.col-md-12.form-group
+          = u.label :パスワード確認
+          br
+          = u.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
+        = u.submit "登録", class: 'btn btn-primary'

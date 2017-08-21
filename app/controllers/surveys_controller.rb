@@ -6,6 +6,12 @@ class SurveysController < ApplicationController
     @company = company
   end
 
+  def show
+    @survey = survey
+    @questions = questions
+    @company = company
+  end
+
   def answer_new
     @survey = survey
     @questions = questions
@@ -51,7 +57,7 @@ class SurveysController < ApplicationController
   private
 
     def company
-      Company.find_by!(params[:name])
+      Company.find_by!(name: params[:company_name])
     end
 
     def survey
@@ -64,7 +70,7 @@ class SurveysController < ApplicationController
 
     def index_params
       @index_params = params.permit(:page, :per)
-      @index_params[:per] ||= 5
+      @index_params[:per] ||= 10
       @index_params
     end
 

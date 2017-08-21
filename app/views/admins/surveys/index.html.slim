@@ -1,13 +1,14 @@
-.new-survey
-  = link_to new_admins_survey_path
-    | アンケート作成
-.company-index
-  = link_to admins_companies_path
-    | 法人一覧
-.new-company
-  = link_to new_admins_company_path
-    | 法人追加
-
-== render @surveys
-
-= paginate(@surveys)
+.surveys.panel.panel-default
+  .panel-body
+    h2.sub-title
+      | アンケート一覧
+  table.table.table-striped
+    thead
+      tr
+      th
+      th アンケート名
+      th 回答者数(社内)
+      th
+    tbody
+      == render @surveys
+  = paginate(@surveys)

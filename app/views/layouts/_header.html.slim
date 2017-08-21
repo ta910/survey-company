@@ -1,0 +1,23 @@
+.header
+  nav.navbar.navbar-default
+    .container-fluid
+      .navbar-header
+        button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+          span class="sr-only"
+            | Toggle navigation
+          span class="icon-bar"
+          span class="icon-bar"
+          span class="icon-bar"
+        a.navbar-brand href="/"
+          | Survay Company
+      .collapse.navbar-collapse id="navbar"
+        ul.nav.navbar-nav
+          - if user_signed_in?
+            li = link_to "マイページへ", company_user_path(current_user.company.name, current_user)
+            li = link_to "アンケート一覧", company_surveys_path(current_user.company.name)
+            li = link_to "ログアウト", destroy_user_session_path(current_user.company.name), method: :delete
+          - if admin_signed_in?
+            li = link_to "アンケート作成", new_admins_survey_path
+            li = link_to "法人一覧", admins_companies_path
+            li = link_to "法人追加", new_admins_company_path
+            li = link_to "ログアウト", destroy_admin_session_path, method: :delete

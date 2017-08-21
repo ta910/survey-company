@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :companies, param: :name, except: [:show] do
       resources :surveys, only: [:index, :show]
     end
-    resources :surveys, only: [:index, :new, :create, :destroy] do
+    resources :surveys, only: [:new, :create] do
       resources :questions, only: [:new, :create]
     end
   end

@@ -1,13 +1,15 @@
-.survey-index
-  = link_to admins_surveys_path
-    | アンケート一覧
-.new-survey
-  = link_to new_admins_survey_path
-    | アンケート作成
-.new-company
-  = link_to new_admins_company_path
-    | 法人追加
-
-== render @companies
-
-= paginate(@companies)
+.companies.panel.panel-default
+  .panel-body
+    h2.sub-title
+      | 法人一覧
+  table.table.table-striped
+    thead
+      tr
+      th
+      th 法人名
+      th 代表者名
+      th
+      th
+    tbody
+      == render @companies
+  = paginate(@companies)
