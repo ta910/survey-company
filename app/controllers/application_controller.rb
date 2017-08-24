@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
-  rescue_from ActionController::BadRequest do |e|
+  rescue_from ActionController::BadRequest, NoMethodError, ActiveRecord::RecordNotFound do |e|
     redirect_to root_path
   end
 

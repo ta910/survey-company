@@ -2,6 +2,8 @@
   .user-info-image
     -if current_user.image.present?
       = image_tag current_user.image.thumb.url, class: 'user-img'
+    -else
+      = image_tag 'no-photo.png', class: 'user-img'
   .user-info-maininfo
     h3
       | 法人名: #{current_user.company.name}
