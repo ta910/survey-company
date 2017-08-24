@@ -29,7 +29,6 @@ class Survey < ApplicationRecord
     def create_answer_choice!(answer_choices_params:, user:)
       answer_choices_params.each do |answer_choice_params|
         answer_choice_params[:question_choice_id].each do |question_choice_id|
-          # binding.pry
           AnswerChoice.create!(question_choice_id: question_choice_id, user_id: user.id)
         end
       end
