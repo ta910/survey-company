@@ -15,6 +15,7 @@
 !/tmp/.keep
 /.env
 /public
+/coverage
 
 # Ignore Byebug command history file.
 .byebug_history

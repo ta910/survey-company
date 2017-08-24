@@ -1,5 +1,6 @@
 class SurveysController < ApplicationController
   before_action :authenticate_user!, :authorized_user!
+  # before_action :validate_result!, only: :show
 
   def index
     @surveys = Survey.includes(:survey_progress).order(created_at: 'DESC').page(index_params[:page]).per(index_params[:per])
@@ -49,8 +50,8 @@ class SurveysController < ApplicationController
   rescue
     @survey = survey
     @questions = questions
-    @answer_text = answer_text
-    @answer_choice = answer_choice
+    @answer_text = AnswerText.new
+    @answer_choice = AnswerChoice.new
     render :answer_edit
   end
 
@@ -112,5 +113,18 @@ class SurveysController < ApplicationController
       else
         raise
       end
+    end
+
+    def validate_result!
+      if SurveyProgress.find_by(survey_id: survey.id, user: current_user).present?
+        progress = SurveyProgress.find_by(survey_id: survey.id, user: current_user)
+        raise ActionController::BadRequest if progress.status == 'doing'
+      else
+        raise ActionController::BadRequest
+      end
+    end
+
+    def validate_new!
+      raise ActionController::BadRequest if SurveyProgress.find_by(survey_id: survey.id, user_id: user.id).present?
     end
 end
